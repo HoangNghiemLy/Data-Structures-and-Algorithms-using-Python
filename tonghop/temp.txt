@@ -1,0 +1,166 @@
+# Yêu cầu
+# Học sinh phải thực hiện đối tượng và phương thức của lớp theo hướng dẫn
+# 1. Lớp IdValue: Đối tượng lớp mô tả dữ liệu IdValue
+# • __init__(id, value): Phương thức khởi tạo với hai tham số là id (chuỗi) và
+# giá trị (int).
+# 2. Lớp IdValueNode: Đối tượng lớp mô tả mục nút trong danh sách
+# • __init__(data,next): Phương thức khởi tạo với hai tham số là dữ liệu (IdValue
+# loại lưu trữ đối tượng dữ liệu) và tiếp theo (loại IdValueNode tham chiếu nút tiếp theo
+# sự vật).
+# 3. Lớp IdValueSLL: Đối tượng lớp mô tả danh sách liên kết đơn để lưu trữ nhiều IdValueNode
+# • __init__(): Phương thức khởi tạo không có tham số được gọi là hàm khởi tạo mặc định
+# phương pháp. Trong phương thức khởi tạo mặc định, nút đầu và nút đuôi phải được gán
+# Không có.
+# • isEmpty():Phương thức sẽ trả về True nếu SSL trống (không có mục nào trong danh sách)
+# nếu không thì sai.
+# • isDuplicate(id): Phương thức sẽ trả về True nếu SSL chứa bất kỳ nút mục nào có
+# Thuộc tính id của dữ liệu có tham số id bằng nhau (được truyền bởi đối số khi gọi phương thức),
+# nếu không thì sai.
+# • addTail(newdata): Phương thức sẽ thêm mục mới vào cuối danh sách.
+
+
+
+#IdValue Class
+# 1. Lớp IdValue: Đối tượng lớp mô tả dữ liệu IdValue
+# • __init__(id, value): Phương thức khởi tạo với hai tham số là id (chuỗi) và
+# giá trị (int).
+class IdValue:
+    def __init__(self,id,value):
+    #============================================================
+    #BEGIN your statements here
+        self.id = id
+        self.value = value
+    #END your statements
+    #=============================================================
+    #DO NOT ADD NEW OR CHANGE THE STATEMENTS
+    def info(self):
+        return self.id+str(self.value)
+    #END
+    #=============================================================
+
+
+
+# 2. Lớp IdValueNode: Đối tượng lớp mô tả mục nút trong danh sách
+# • __init__(data,next): Phương thức khởi tạo với hai tham số là dữ liệu (IdValue
+# loại lưu trữ đối tượng dữ liệu) và tiếp theo (loại IdValueNode tham chiếu nút tiếp theo
+# sự vật).
+#IdValue Node Class
+class IdValueNode:
+    def __init__(self, data, next):
+    #============================================================
+    #BEGIN your statements here
+        self.data = data
+        self.next = next
+    #END your statements
+    #=============================================================
+    
+    #=============================================================
+    #DO NOT ADD NEW OR CHANGE THE STATEMENTS
+    def info(self):
+      if self.next != None:
+        return self.data.info()+">"
+      else:
+        return self.data.info()+">null"  
+    #END
+    #=============================================================
+
+
+
+# 3. Lớp IdValueSLL: Đối tượng lớp mô tả danh sách liên kết đơn để lưu trữ nhiều IdValueNode
+# • __init__(): Phương thức khởi tạo không có tham số được gọi là hàm khởi tạo mặc định
+# phương pháp. Trong phương thức khởi tạo mặc định, nút đầu và nút đuôi phải được gán
+# Không có.
+# • isEmpty():Phương thức sẽ trả về True nếu SSL trống (không có mục nào trong danh sách)
+# nếu không thì sai.
+# • isDuplicate(id): Phương thức sẽ trả về True nếu SSL chứa bất kỳ nút mục nào có
+# Thuộc tính id của dữ liệu có tham số id bằng nhau (được truyền bởi đối số khi gọi phương thức),
+# nếu không thì sai.
+# • addTail(newdata): Phương thức sẽ thêm mục mới vào cuối danh sách.
+
+#IdValue Single Linked List Class
+class IdValueSLL:
+    def __init__(self):
+    #============================================================
+    #BEGIN your statements here
+        self.head = None
+        self.tail = None
+    #END your statements
+    #=============================================================
+           
+    def isEmpty(self):
+    #============================================================
+    #BEGIN your statements here
+        
+        if self.head == None:
+            return True
+        else:
+            return False
+    #END your statements
+    #=============================================================
+
+    def isDuplicated(self,_id):
+    #============================================================
+    #BEGIN your statements here
+        current = self.head
+        while current != None:
+            if current.data.id == _id:
+                return True
+            current = current.next
+        return False
+    #END your statements
+    #============================================================
+    
+    def addTail(self, newdata):
+    #============================================================
+    #BEGIN your statements here
+        newNode = IdValueNode(newdata, None)
+        if self.isEmpty():
+            self.head = newNode
+            self.tail = newNode
+        else:
+            self.tail.next = newNode
+            self.tail = newNode
+    #END your statements
+    #=============================================================
+        
+    #=============================================================
+    #DO NOT ADD NEW OR CHANGE THE STATEMENTS
+    def checkResult(self):
+        resultCode = "null"
+        count = 0
+        if self.isEmpty():
+            return str(count)+resultCode
+        current = self.head
+        while current != None:
+            count = count+1
+
+            temp = current.info()
+            if current.next != None:
+                temp = temp + current.next.data.id +">"
+
+            resultCode=resultCode+temp
+            current = current.next
+        return str(count)+resultCode
+    #END
+
+#==================================================================================
+#DO NOT ADD NEW OR CHANGE THE STATEMENTS IN THE MAIN FUNCTION
+def main():
+    print("TEST Q1 (5 marks):")
+    kvList = IdValueSLL()
+
+    soluong = int(input("Input number of items:"))
+    for i in range(soluong):                
+        cod = input("Input id:")
+        val = int(input("Input value:"))
+        item = IdValue(cod,val)
+        if kvList.isDuplicated(cod) == False:
+            kvList.addTail(item)
+
+    print("OUTPUT:")
+    print(kvList.checkResult())
+            
+#END MAIN
+if __name__ == '__main__':
+    main()
+#==================================================================================
